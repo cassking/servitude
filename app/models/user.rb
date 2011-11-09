@@ -7,7 +7,7 @@ class User
   
   def self.get_authenticated(email, password)
     user = all(email: email).first
-    user.authenticate?(password) ? user : nil
+    user.authenticate?(password) ? user : nil if user
   end
   
   def authenticate?(password)
