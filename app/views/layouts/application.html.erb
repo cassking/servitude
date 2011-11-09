@@ -7,6 +7,14 @@
 		<%= csrf_meta_tags %>
 	</head>
 	<body>
+		<h1>Servitude</h1>
+		<% [:error, :success].each do |type| %>
+			<% unless flash[type].blank? %>
+				<p class="<%= type %>"><%= flash[type] %></p>
+				<% flash.delete(type) %>
+			<% end %>
+		<% end %>
+
 		<%= yield %>
 	</body>
 </html>

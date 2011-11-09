@@ -1,4 +1,8 @@
 Servitude::Application.routes.draw do
+  
+  resource :login
+  resource :timer
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

@@ -5,9 +5,9 @@ describe User do
     
   describe '.get_authenticated' do    
     it 'returns a user with a valid email and password combination' do
-      subject.should == User.get_authenticated('user@weblinc.com', 'a_password')
+      subject.should == User.get_authenticated(subject.email, 'a_password')
     end
-    
+
     it 'returns nil with an invalid email and password combination' do
       User.get_authenticated('user@weblinc.com', 'an_incorrect_password').should be_nil
     end
@@ -31,5 +31,5 @@ describe User do
       invalid_user.should_not be_valid
       invalid_user.errors[:email].should_not be_empty
     end
-  end  
+  end
 end
