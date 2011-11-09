@@ -7,7 +7,7 @@ describe LoginsController do
       response.should render_template('logins/show')
     end
   end
-  
+
   describe 'POST create' do
     context 'valid params' do
       let(:user) { mock(id: 12345) }
@@ -23,15 +23,15 @@ describe LoginsController do
         response.should redirect_to(timer_path)
       end
     end
-    
+
     context 'invalid params' do
       before(:each) { User.stub(get_authenticated: nil) }
 
       it 'renders the login form' do
         post :create, email: 'user@weblinc.com', password: 'password'
-        response.should render_template('logins/show')        
+        response.should render_template('logins/show')
       end
-      
+
       it 'sets an error message' do
         post :create, email: 'user@weblinc.com', password: 'password'
         flash[:error].should_not be_blank
