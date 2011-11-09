@@ -11,6 +11,10 @@ describe User do
     it 'returns nil with an invalid email and password combination' do
       User.get_authenticated('user@weblinc.com', 'an_incorrect_password').should be_nil
     end
+
+    it "returns nil if the email address doesn't exist" do
+      User.get_authenticated('non_existing@weblinc.com', 'a_password').should be_nil
+    end
   end
   
   describe '#authenticate?' do
