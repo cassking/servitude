@@ -15,7 +15,7 @@ describe LoginsController do
 
       it 'logs the user in' do
         post :create, email: 'user@weblinc.com', password: 'password'
-        session[:user_id].should == user.id
+        controller.current_user.should == user
       end
 
       it 'redirects to timers controller' do
@@ -36,6 +36,18 @@ describe LoginsController do
         post :create, email: 'user@weblinc.com', password: 'password'
         flash[:error].should_not be_blank
       end
+    end
+  end
+
+  describe 'DELETE destroy' do
+    it 'logs out the user' do
+      controller.should_receive(:logout)
+      delete :destroy
+    end
+
+    it 'redirects to the login page' do
+      delete :destroy
+      response.should redirect_to(login_path)
     end
   end
 end
