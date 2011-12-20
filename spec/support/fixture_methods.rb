@@ -7,4 +7,13 @@ module FixtureMethods
     defaults = { email: "user#{FixtureMethods.user_count}@weblinc.com", password: 'a_password' }
     User.create(defaults.merge(attributes))
   end
+
+  def create_task(attributes = {})
+    defaults = { name: 'Test Task' }
+    Task.create(defaults.merge(attributes))
+  end
+
+  def create_time_entry(attributes = {})
+    TimeEntry.create(attributes)
+  end
 end

@@ -26,4 +26,5 @@ end
 
 group :development, :test do
   gem 'rspec-rails',     RSPEC_VERSION
+  gem 'rcov'
 end

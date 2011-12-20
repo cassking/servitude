@@ -1,1 +1,30 @@
-TIMER
+<% if current_user.current_task %>
+	<dl>
+		<dt>Current Task</dt>
+		<dd><%= current_user.current_task.name %></dd>
+	</dl>
+<% end %>
+
+<%= form_tag start_task_path, method: :post do %>
+	<%= select_tag :task_id, options_from_collection_for_select(@tasks, :id, :name) %>
+	<%= submit_tag 'Serve' %>
+<% end %>
+
+<% if current_user.time_entries.any? %>
+	<ul>
+		<% current_user.time_entries.each do |time_entry| %>
+			<li>
+				<%= time_entry.task.name %>
+				<dl>
+					<dt>Started At</dt>
+					<dd><%= time_entry.start_at.to_s(:short) %></dd>
+				</dl>
+
+				<dl>
+					<dt>Ended At</dt>
+					<dd><%= time_entry.end_at.to_s(:short) %></dd>
+				</dl>
+			</li>
+		<% end %>
+	</ul>
+<% end %>

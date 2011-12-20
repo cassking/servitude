@@ -4,6 +4,9 @@ class User
   property :id, Serial
   property :email, String, required: true, format: :email_address, unique: true
   property :password, BCryptHash, required: true
+  property :task_started_at, DateTime
+
+  belongs_to :current_task, model: 'Task', required: false
 
   def self.get_authenticated(email, password)
     user = all(email: email).first
@@ -12,5 +15,28 @@ class User
 
   def authenticate?(password)
     self.password == password
+  end
+
+  def start_task(task_id)
+    return if task_id == current_task_id
+
+    stop_task
+    self.current_task_id = task_id
+    self.task_started_at = Time.now
+    save
+  end
+
+  def stop_task
+    self.current_task = nil
+    self.task_started_at = nil
+
+    TimeEntry.create(
+      user_id:  id,
+      task_id:  current_task_id,
+      start_at: task_started_at,
+      end_at:   Time.now
+    )
+
+    save
   end
 end

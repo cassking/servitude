@@ -7,3 +7,8 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 User.create(email: 'user@weblinc.com', password: 'a_password')
+
+Task.create(name: 'One Task')
+Task.create(name: 'Two Task')
+Task.create(name: 'Red Task')
+Task.create(name: 'Blue Task')

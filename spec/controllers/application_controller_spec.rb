@@ -38,4 +38,28 @@ describe ApplicationController do
       session[:user_id].should be_blank
     end
   end
+
+  describe '#ensure_logged_in' do
+    controller do
+      def index
+        head :ok
+      end
+    end
+
+    context 'not logged in' do
+      it 'redirects to the login page' do
+        get :index
+        response.should redirect_to(login_path)
+      end
+    end
+
+    context 'logged in' do
+      before(:each) { controller.login(user) }
+
+      it 'allows the request' do
+        get :index
+        response.should be_ok
+      end
+    end
+  end
 end

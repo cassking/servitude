@@ -1,8 +1,12 @@
 Servitude::Application.routes.draw do
-  
+
+  resources :tasks
+
   resource :login
   resource :timer
-  
+
+  match 'start_task' => 'timers#start_task', as: :start_task
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
