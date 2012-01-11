@@ -45,7 +45,6 @@ describe TimersController do
 
   describe 'POST start_task'do
     let(:task_id) { '1234' }
-
     it 'starts the task for the #current_user' do
       TimeEntry.should_receive(:start_task).with(1234, '1234')
       post :start_task, task_id: task_id
