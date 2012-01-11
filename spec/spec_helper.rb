@@ -27,6 +27,5 @@ RSpec.configure do |config|
 
   config.before(:suite) do
     DataMapper.auto_migrate!
-    load "#{Rails.root}/db/seeds.rb"
   end
 end

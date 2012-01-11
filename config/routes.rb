@@ -6,6 +6,7 @@ Servitude::Application.routes.draw do
   resource :timer
 
   match 'start_task' => 'timers#start_task', as: :start_task
+  match 'stop_task'  => 'timers#stop_task',  as: :stop_task
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

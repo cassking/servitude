@@ -4,9 +4,6 @@ class User
   property :id, Serial
   property :email, String, required: true, format: :email_address, unique: true
   property :password, BCryptHash, required: true
-  property :task_started_at, DateTime
-
-  belongs_to :current_task, model: 'Task', required: false
 
   def self.get_authenticated(email, password)
     user = all(email: email).first

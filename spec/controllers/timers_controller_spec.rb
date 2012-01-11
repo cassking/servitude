@@ -10,6 +10,28 @@ describe TimersController do
       end
     end
 
+    it 'sets the current task' do
+      task = mock
+
+      TimeEntry.
+        should_receive(:current_task_for).
+        with(1234).
+        and_return(task)
+
+      get :show
+      assigns[:current_task].should == task
+    end
+
+    it 'sets recent entries for the user' do
+      TimeEntry.
+        should_receive(:recent_for).
+        with(1234).
+        and_return(tasks)
+
+      get :show
+      assigns[:recent_entries].should == tasks
+    end
+
     it 'returns an OK status' do
       get :show
       response.should be_ok
@@ -22,17 +44,29 @@ describe TimersController do
   end
 
   describe 'POST start_task'do
-    let(:task_id) { '123' }
-
-    before(:each) { controller.current_user.stub(:start_task) }
+    let(:task_id) { '1234' }
 
     it 'starts the task for the #current_user' do
-      controller.current_user.should_receive(:start_task).with(task_id)
+      TimeEntry.should_receive(:start_task).with(1234, '1234')
       post :start_task, task_id: task_id
     end
 
     it 'redirects to tasks_path' do
       post :start_task, task_id: task_id
+      response.should redirect_to(timer_path)
+    end
+  end
+
+  describe 'POST stop_task' do
+    let(:task_id) { '1234' }
+
+    it 'stops the task for the #current_user' do
+      TimeEntry.should_receive(:stop_task).with(1234)
+      post :stop_task
+    end
+
+    it 'redirects to tasks_path' do
+      post :stop_task
       response.should redirect_to(timer_path)
     end
   end

@@ -1,7 +1,7 @@
-<% if current_user.current_task %>
+<% if @current_task %>
 	<dl>
 		<dt>Current Task</dt>
-		<dd><%= current_user.current_task.name %></dd>
+		<dd><%= @current_task.name %></dd>
 	</dl>
 <% end %>
 
