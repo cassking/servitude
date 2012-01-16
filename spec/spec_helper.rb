@@ -28,4 +28,16 @@ RSpec.configure do |config|
   config.before(:suite) do
     DataMapper.auto_migrate!
   end
+ #wraping tests in a transaction
+  config.before(:each) do
+     repository(:default) do
+       transaction = DataMapper::Transaction.new(repository)
+       transaction.begin
+       repository.adapter.push_transaction(transaction)
+     end 
+ end
+
+ config.after(:each) do
+     repository(:default).adapter.pop_transaction.rollback
+ end
 end
